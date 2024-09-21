@@ -1,12 +1,3 @@
-/**
- * 
- * Tác giả: La Võ Minh Quân - MSSV:19441111 - Nhóm 4
- * Ngày tạo: 23/10/2021
- * 
- * Mô tả: Lớp taiKhoanDAO có chức năng là thao tác trực tiếp với cơ sở dữ liệu lấy thông tin tài khoản từ cơ sở dữ liệu
- * 
- */
-
 package dao;
 
 import java.sql.Connection;

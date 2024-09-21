@@ -62,7 +62,7 @@ public class MainFrame extends JFrame implements ActionListener {
 	private PnlQuanLyTaiKhoan quanLyTaiKhoanPanel;
 	private DialogThongTinTaiKhoan thongTinTaiKhoan;
 	private PnlQuanLyPhong quanLyPhongPanel;
-	private PnlQuanLySanPham quanLySanPhamPanel;
+	private PnlQuanLyDichVu quanLySanPhamPanel;
 	private PnlQuanLyKhachHang quanLyKhachHangPanel;
 	private PnlDatPhong panelDatPhong;
 	private PnlThanhToan thanhToanPanel;
@@ -517,7 +517,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		}
 
 		if (o.equals(btnQLSanPham)) {
-			quanLySanPhamPanel = new PnlQuanLySanPham();
+			quanLySanPhamPanel = new PnlQuanLyDichVu();
 			switchPanel(quanLySanPhamPanel);
 		}
 

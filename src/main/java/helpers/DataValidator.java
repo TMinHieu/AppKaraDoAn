@@ -1,11 +1,3 @@
-/**
- * 
- * Tác giả: La Võ Minh Quân - MSSV:19441111 - Nhóm 4
- * Ngày tạo: 21/10/2021
- * Cập nhật: 30/10/2021
- * Mô tả: kiểm tra sự phù hợp của dữ liệu, ràng buộc dữ liệu, biểu thức chính quy
- */
-
 package helpers;
 
 import java.util.List;
@@ -19,14 +11,6 @@ import dao.KhachHangDAO;
 import entity.KhachHang;
 
 public class DataValidator {
-
-	/**
-	 * kiểm tra trường người dùng nhập vào có rỗng hay không (jtextfield)
-	 * 
-	 * @param field        chứa trường người dùng nhập vào
-	 * @param sb           đối tượng stringbuilder để append thông điệp lỗi
-	 * @param errorMessage chứa thông điệp lỗi
-	 */
 	public static void validateEmpty(JTextField field, StringBuilder sb, String errorMessage) {
 		if (field.getText().equals("")) {
 			sb.append(errorMessage).append("\n");
@@ -34,14 +18,6 @@ public class DataValidator {
 		}
 	}
 
-	/**
-	 * kiểm tra trường mật khẩu người dùng nhập vào có rỗng hay không
-	 * (jpasswordField)
-	 * 
-	 * @param field        chứa trường password người dùng nhập vào
-	 * @param sb           đối tượng stringbuilder để append thông điệp lỗi
-	 * @param errorMessage chứa thông điệp lỗi
-	 */
 	public static void validateEmpty(JPasswordField field, StringBuilder sb, String errorMessage) {
 		String password = new String(field.getPassword());
 		if (password.equals("")) {
@@ -49,15 +25,6 @@ public class DataValidator {
 			field.requestFocus();
 		}
 	}
-
-	/**
-	 * kiểm tra trường nhập liệu có dấu nhưng không được nhập số
-	 * 
-	 * 
-	 * @param field        chứa trường người dùng nhập vào
-	 * @param sb           đối tượng stringbuilder để append thông điệp lỗi
-	 * @param errorMessage chứa thông điệp lỗi
-	 */
 	public static void validateVietnameseCharacters(JTextField field, StringBuilder sb, String errorMessage) {
 		String VIETNAMESE_DIACRITIC_CHARACTERS = "ẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ";
 

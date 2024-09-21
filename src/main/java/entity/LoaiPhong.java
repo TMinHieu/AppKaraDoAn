@@ -1,8 +1,3 @@
-/**
- * Tác giả: Nguyễn Hồng Quân - mssv:19445101 - Nhóm 4
- * Mô tả: lớp thực thể chứa dữ liệu của Loại Phòng
- * Ngày tạo: 30/10/2021
- */
 package entity;
 
 import java.util.Objects;

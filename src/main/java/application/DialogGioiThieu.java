@@ -21,18 +21,11 @@ import javax.swing.JTextArea;
 
 public class DialogGioiThieu extends JDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 
-	/**
-	 * Create the dialog.
-	 */
 	public DialogGioiThieu() {
 
-		/** set color and font **/
 		Font tahoma20 = new Font("Tahoma", Font.PLAIN, 20);
 		Font tahoma16 = new Font("Tahoma", Font.PLAIN, 16);
 		Font tahoma18 = new Font("Tahoma", Font.PLAIN, 18);

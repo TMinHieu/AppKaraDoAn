@@ -3,14 +3,14 @@ package entity;
 public class ChiTietHoaDon {
 	private HoaDon hoaDon;
 	private Phong phong;
-	private SanPham sanPham;
+	private DichVu sanPham;
 	private int soLuong;
 
 	public ChiTietHoaDon() {
 		super();
 	}
 
-	public ChiTietHoaDon(HoaDon hoaDon, Phong phong, SanPham sanPham, int soLuong) {
+	public ChiTietHoaDon(HoaDon hoaDon, Phong phong, DichVu sanPham, int soLuong) {
 		super();
 		this.hoaDon = hoaDon;
 		this.phong = phong;
@@ -34,11 +34,11 @@ public class ChiTietHoaDon {
 		this.phong = phong;
 	}
 
-	public SanPham getSanPham() {
+	public DichVu getSanPham() {
 		return sanPham;
 	}
 
-	public void setSanPham(SanPham sanPham) {
+	public void setSanPham(DichVu sanPham) {
 		this.sanPham = sanPham;
 	}
 

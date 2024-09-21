@@ -10,9 +10,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 import dao.LoaiSanPhamDAO;
-import dao.SanPhamDAO;
-import entity.LoaiSanPham;
-import entity.SanPham;
+import dao.DichVuDAO;
+import entity.LoaiDichVu;
+import entity.DichVu;
 import helpers.DataValidator;
 import helpers.MessageDialogHelpers;
 
@@ -38,31 +38,31 @@ import javax.swing.JComboBox;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class PnlQuanLySanPham extends JPanel implements ActionListener {
+public class PnlQuanLyDichVu extends JPanel implements ActionListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField txtMaSP;
-	private JTextField txtTenSP;
+	private JTextField txtMaDV;
+	private JTextField txtTenDV;
 	private JTextField txtDonGia;
-	private JTextField txtMaLoaiSP;
-	private JTextField txtTenLoaiSP;
-	private JButton btnThemLoaiSP, btnCapNhatLoaiSP, btnXoaLoaiSP;
-	private JButton btnXoaSP, btnCapNhatSP, btnThem, btnLamMoi;
-	private JTable tblSanPham, tblLoaiSanPham;
+	private JTextField txtMaLoaiDV;
+	private JTextField txtTenLoaiDV;
+	private JButton btnThemLoaiDV, btnCapNhatLoaiDV, btnXoaLoaiDV;
+	private JButton btnXoaDV, btnCapNhatDV, btnThem, btnLamMoi;
+	private JTable tblDichVu, tblLoaiDichVu;
 	private JComboBox<String> cmbTim;
-	private DefaultTableModel modelSanPham;
-	private DefaultTableModel modelLoaiSP;
+	private DefaultTableModel modelDichVu;
+	private DefaultTableModel modelLoaiDV;
 	private MainFrame mainFrame;
-	private JComboBox<String> cmbLoaiSanPham;
+	private JComboBox<String> cmbLoaiDichVu;
 	private JTextField txtTim;
 
 	/**
 	 * Create the panel.
 	 */
-	public PnlQuanLySanPham() {
+	public PnlQuanLyDichVu() {
 		Color whiteColor = new Color(255, 255, 255);
 		Color mainColor = new Color(88, 159, 177);
 		Color seperatorColor = new Color(204, 204, 204);
@@ -175,35 +175,35 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 					.addContainerGap())
 		);
 
-		tblSanPham = new JTable();
-		tblSanPham.setFont(tahoma16);
-		tblSanPham.setRowHeight(28);
-		tblSanPham.setAutoCreateRowSorter(true);
-		tblSanPham.getTableHeader().setFont(tahoma16Bold);
-		tblSanPham.getTableHeader().setBackground(tableHeaderColor);
-		tblSanPham.getTableHeader().setForeground(whiteColor);
-		scrollPane.setViewportView(tblSanPham);
+		tblDichVu = new JTable();
+		tblDichVu.setFont(tahoma16);
+		tblDichVu.setRowHeight(28);
+		tblDichVu.setAutoCreateRowSorter(true);
+		tblDichVu.getTableHeader().setFont(tahoma16Bold);
+		tblDichVu.getTableHeader().setBackground(tableHeaderColor);
+		tblDichVu.getTableHeader().setForeground(whiteColor);
+		scrollPane.setViewportView(tblDichVu);
 		initTableSanPham();
 		panel_2.setLayout(gl_panel_2);
 
 		/**
 		 * load dữ liệu từ table sản phẩm lên jtext
 		 */
-		tblSanPham.addMouseListener(new MouseAdapter() {
+		tblDichVu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					int row = tblSanPham.getSelectedRow();
+					int row = tblDichVu.getSelectedRow();
 					if (row >= 0) {
-						String ma = (String) tblSanPham.getValueAt(row, 0);
-						SanPhamDAO sanPhamDAO = new SanPhamDAO();
-						SanPham sanPham = sanPhamDAO.getSanPhamTheoMa(ma);
-						if (sanPham != null) {
-							txtMaSP.setText(ma);
-							txtTenSP.setText(sanPham.getTenSanPham());
-							double donGia = sanPham.getDonGia();
+						String ma = (String) tblDichVu.getValueAt(row, 0);
+						DichVuDAO dichVuDAO = new DichVuDAO();
+						DichVu dichVu = dichVuDAO.getDichVuTheoMa(ma);
+						if (dichVu != null) {
+							txtMaDV.setText(ma);
+							txtTenDV.setText(dichVu.getTenDichVu());
+							double donGia = dichVu.getDonGia();
 							txtDonGia.setText(Double.toString(donGia));
-							cmbLoaiSanPham.setSelectedItem(sanPham.getLoaiSanPham().getTenLoaiSP());
+							cmbLoaiDichVu.setSelectedItem(dichVu.getLoaiDichVu().getTenLoaiDV());
 						}
 					}
 
@@ -216,89 +216,89 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 		JLabel lblNewLabel_1_2 = new JLabel("Mã loại dịch vụ:");
 		lblNewLabel_1_2.setFont(tahoma16);
 
-		txtMaLoaiSP = new JTextField();
-		txtMaLoaiSP.setFont(tahoma14);
-		txtMaLoaiSP.setEditable(false);
-		txtMaLoaiSP.setColumns(10);
+		txtMaLoaiDV = new JTextField();
+		txtMaLoaiDV.setFont(tahoma14);
+		txtMaLoaiDV.setEditable(false);
+		txtMaLoaiDV.setColumns(10);
 
 		JLabel lblNewLabel_1_1_3 = new JLabel("Tên loại dịch vụ:");
 		lblNewLabel_1_1_3.setFont(tahoma16);
 
-		txtTenLoaiSP = new JTextField();
-		txtTenLoaiSP.addFocusListener(new FocusAdapter() {
+		txtTenLoaiDV = new JTextField();
+		txtTenLoaiDV.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				txtTenLoaiSP.setBorder(BorderFactory.createLineBorder(hoverColor));
-				txtTenLoaiSP.setForeground(hovertextColor);
+				txtTenLoaiDV.setBorder(BorderFactory.createLineBorder(hoverColor));
+				txtTenLoaiDV.setForeground(hovertextColor);
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				txtTenLoaiSP.setBorder(BorderFactory.createLineBorder(seperatorColor));
-				txtTenLoaiSP.setForeground(blackColor);
+				txtTenLoaiDV.setBorder(BorderFactory.createLineBorder(seperatorColor));
+				txtTenLoaiDV.setForeground(blackColor);
 			}
 		});
-		txtTenLoaiSP.setFont(tahoma14);
-		txtTenLoaiSP.setColumns(10);
+		txtTenLoaiDV.setFont(tahoma14);
+		txtTenLoaiDV.setColumns(10);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 
 		// btn thêm loại sản phẩm
-		btnThemLoaiSP = new JButton("Thêm");
-		btnThemLoaiSP.addMouseListener(new java.awt.event.MouseAdapter() {
+		btnThemLoaiDV = new JButton("Thêm");
+		btnThemLoaiDV.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				btnThemLoaiSP.setBackground(hoverColor);
+				btnThemLoaiDV.setBackground(hoverColor);
 			}
 
 			public void mouseExited(java.awt.event.MouseEvent evt) {
-				btnThemLoaiSP.setBackground(mainColor);
+				btnThemLoaiDV.setBackground(mainColor);
 			}
 		});
-		btnThemLoaiSP.setBorder(null);
+		btnThemLoaiDV.setBorder(null);
 
-		btnThemLoaiSP.setIcon(new ImageIcon(getClass().getResource("/images/icons8-add-20.png")));
-		btnThemLoaiSP.setForeground(whiteColor);
-		btnThemLoaiSP.setFont(tahoma14Bold);
-		btnThemLoaiSP.setFocusable(false);
-		btnThemLoaiSP.setBackground(mainColor);
+		btnThemLoaiDV.setIcon(new ImageIcon(getClass().getResource("/images/icons8-add-20.png")));
+		btnThemLoaiDV.setForeground(whiteColor);
+		btnThemLoaiDV.setFont(tahoma14Bold);
+		btnThemLoaiDV.setFocusable(false);
+		btnThemLoaiDV.setBackground(mainColor);
 
 		// btn cập nhật loại sản phẩm
-		btnCapNhatLoaiSP = new JButton("Cập nhật");
-		btnCapNhatLoaiSP.addMouseListener(new java.awt.event.MouseAdapter() {
+		btnCapNhatLoaiDV = new JButton("Cập nhật");
+		btnCapNhatLoaiDV.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				btnCapNhatLoaiSP.setBackground(hoverColor);
+				btnCapNhatLoaiDV.setBackground(hoverColor);
 			}
 
 			public void mouseExited(java.awt.event.MouseEvent evt) {
-				btnCapNhatLoaiSP.setBackground(mainColor);
+				btnCapNhatLoaiDV.setBackground(mainColor);
 			}
 		});
-		btnCapNhatLoaiSP.setBorder(null);
+		btnCapNhatLoaiDV.setBorder(null);
 
-		btnCapNhatLoaiSP.setIcon(new ImageIcon(getClass().getResource("/images/icons8-pencil-16.png")));
-		btnCapNhatLoaiSP.setForeground(whiteColor);
-		btnCapNhatLoaiSP.setFont(tahoma14Bold);
-		btnCapNhatLoaiSP.setFocusable(false);
-		btnCapNhatLoaiSP.setBackground(mainColor);
+		btnCapNhatLoaiDV.setIcon(new ImageIcon(getClass().getResource("/images/icons8-pencil-16.png")));
+		btnCapNhatLoaiDV.setForeground(whiteColor);
+		btnCapNhatLoaiDV.setFont(tahoma14Bold);
+		btnCapNhatLoaiDV.setFocusable(false);
+		btnCapNhatLoaiDV.setBackground(mainColor);
 
 		// btn xóa loại phòng
-		btnXoaLoaiSP = new JButton("Xóa");
-		btnXoaLoaiSP.addMouseListener(new java.awt.event.MouseAdapter() {
+		btnXoaLoaiDV = new JButton("Xóa");
+		btnXoaLoaiDV.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				btnXoaLoaiSP.setBackground(hoverColor);
+				btnXoaLoaiDV.setBackground(hoverColor);
 			}
 
 			public void mouseExited(java.awt.event.MouseEvent evt) {
-				btnXoaLoaiSP.setBackground(mainColor);
+				btnXoaLoaiDV.setBackground(mainColor);
 			}
 		});
-		btnXoaLoaiSP.setBorder(null);
+		btnXoaLoaiDV.setBorder(null);
 
-		btnXoaLoaiSP.setIcon(new ImageIcon(getClass().getResource("/images/icons8-remove-24.png")));
-		btnXoaLoaiSP.setForeground(whiteColor);
-		btnXoaLoaiSP.setFont(tahoma14Bold);
-		btnXoaLoaiSP.setFocusable(false);
-		btnXoaLoaiSP.setBackground(mainColor);
+		btnXoaLoaiDV.setIcon(new ImageIcon(getClass().getResource("/images/icons8-remove-24.png")));
+		btnXoaLoaiDV.setForeground(whiteColor);
+		btnXoaLoaiDV.setFont(tahoma14Bold);
+		btnXoaLoaiDV.setFocusable(false);
+		btnXoaLoaiDV.setBackground(mainColor);
 
 		JLabel lblThngTinLoi = new JLabel("Thông tin loại dịch vụ ");
 		lblThngTinLoi.setFont(tahoma20Bold);
@@ -326,17 +326,17 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 											.addComponent(lblNewLabel_1_1_3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 										.addGap(53)
 										.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-											.addComponent(txtTenLoaiSP, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
-											.addComponent(txtMaLoaiSP, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)))
+											.addComponent(txtTenLoaiDV, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+											.addComponent(txtMaLoaiDV, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)))
 									.addGroup(gl_panel_1.createSequentialGroup()
 										.addComponent(lblThngTinLoi, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(ComponentPlacement.RELATED))
 									.addGroup(gl_panel_1.createSequentialGroup()
-										.addComponent(btnThemLoaiSP, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnThemLoaiDV, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(btnCapNhatLoaiSP, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+										.addComponent(btnCapNhatLoaiDV, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
 										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(btnXoaLoaiSP, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)))
+										.addComponent(btnXoaLoaiDV, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)))
 								.addGap(26)))))
 		);
 		gl_panel_1.setVerticalGroup(
@@ -346,11 +346,11 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 					.addComponent(lblThngTinLoi, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 					.addGap(31)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtMaLoaiSP, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtMaLoaiDV, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_1_2, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtTenLoaiSP, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtTenLoaiDV, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_1_1_3, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblNewLabel_1_1_3_1, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
@@ -358,32 +358,32 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnThemLoaiSP, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnXoaLoaiSP, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnCapNhatLoaiSP, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnThemLoaiDV, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnXoaLoaiDV, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnCapNhatLoaiDV, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 
-		tblLoaiSanPham = new JTable();
-		tblLoaiSanPham.setFont(tahoma16);
-		tblLoaiSanPham.setRowHeight(28);
-		tblLoaiSanPham.setAutoCreateRowSorter(true);
-		tblLoaiSanPham.getTableHeader().setFont(tahoma16Bold);
-		tblLoaiSanPham.getTableHeader().setBackground(tableHeaderColor);
-		tblLoaiSanPham.getTableHeader().setForeground(whiteColor);
+		tblLoaiDichVu = new JTable();
+		tblLoaiDichVu.setFont(tahoma16);
+		tblLoaiDichVu.setRowHeight(28);
+		tblLoaiDichVu.setAutoCreateRowSorter(true);
+		tblLoaiDichVu.getTableHeader().setFont(tahoma16Bold);
+		tblLoaiDichVu.getTableHeader().setBackground(tableHeaderColor);
+		tblLoaiDichVu.getTableHeader().setForeground(whiteColor);
 		initTableLoaiSP();
-		scrollPane_1.setViewportView(tblLoaiSanPham);
+		scrollPane_1.setViewportView(tblLoaiDichVu);
 
 		/**
 		 * load dữ liệu từ table loại sản phẩm lên jtext
 		 */
-		tblLoaiSanPham.addMouseListener(new MouseAdapter() {
+		tblLoaiDichVu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					int row = tblLoaiSanPham.getSelectedRow();
-					txtMaLoaiSP.setText(tblLoaiSanPham.getValueAt(row, 0).toString());
-					txtTenLoaiSP.setText(tblLoaiSanPham.getValueAt(row, 1).toString());
+					int row = tblLoaiDichVu.getSelectedRow();
+					txtMaLoaiDV.setText(tblLoaiDichVu.getValueAt(row, 0).toString());
+					txtTenLoaiDV.setText(tblLoaiDichVu.getValueAt(row, 1).toString());
 
 				} catch (Exception e2) {
 					e2.printStackTrace();
@@ -407,46 +407,46 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 		JLabel lblNewLabel_1_1_2 = new JLabel("Đơn giá:");
 		lblNewLabel_1_1_2.setFont(tahoma16);
 
-		txtMaSP = new JTextField();
-		txtMaSP.setFont(tahoma16);
-		txtMaSP.setEditable(false);
-		txtMaSP.setColumns(10);
+		txtMaDV = new JTextField();
+		txtMaDV.setFont(tahoma16);
+		txtMaDV.setEditable(false);
+		txtMaDV.setColumns(10);
 
 		// btn xóa sản phẩm
-		btnXoaSP = new JButton("Xóa");
-		btnXoaSP.addMouseListener(new java.awt.event.MouseAdapter() {
+		btnXoaDV = new JButton("Xóa");
+		btnXoaDV.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				btnXoaSP.setBackground(hoverColor);
+				btnXoaDV.setBackground(hoverColor);
 			}
 
 			public void mouseExited(java.awt.event.MouseEvent evt) {
-				btnXoaSP.setBackground(mainColor);
+				btnXoaDV.setBackground(mainColor);
 			}
 		});
-		btnXoaSP.setBorder(null);
+		btnXoaDV.setBorder(null);
 
-		btnXoaSP.setIcon(new ImageIcon(getClass().getResource("/images/icons8-remove-24.png")));
-		btnXoaSP.setForeground(whiteColor);
-		btnXoaSP.setFont(tahoma14Bold);
-		btnXoaSP.setFocusable(false);
-		btnXoaSP.setBackground(mainColor);
+		btnXoaDV.setIcon(new ImageIcon(getClass().getResource("/images/icons8-remove-24.png")));
+		btnXoaDV.setForeground(whiteColor);
+		btnXoaDV.setFont(tahoma14Bold);
+		btnXoaDV.setFocusable(false);
+		btnXoaDV.setBackground(mainColor);
 
-		txtTenSP = new JTextField();
-		txtTenSP.addFocusListener(new FocusAdapter() {
+		txtTenDV = new JTextField();
+		txtTenDV.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				txtTenSP.setBorder(BorderFactory.createLineBorder(hoverColor));
-				txtTenSP.setForeground(hovertextColor);
+				txtTenDV.setBorder(BorderFactory.createLineBorder(hoverColor));
+				txtTenDV.setForeground(hovertextColor);
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
-				txtTenSP.setBorder(BorderFactory.createLineBorder(seperatorColor));
-				txtTenSP.setForeground(blackColor);
+				txtTenDV.setBorder(BorderFactory.createLineBorder(seperatorColor));
+				txtTenDV.setForeground(blackColor);
 			}
 		});
-		txtTenSP.setFont(tahoma16);
-		txtTenSP.setColumns(10);
+		txtTenDV.setFont(tahoma16);
+		txtTenDV.setColumns(10);
 
 		txtDonGia = new JTextField();
 		txtDonGia.addFocusListener(new FocusAdapter() {
@@ -466,23 +466,23 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 		txtDonGia.setColumns(10);
 
 		// btn cập nhật sản phẩm
-		btnCapNhatSP = new JButton("Cập nhật");
-		btnCapNhatSP.addMouseListener(new java.awt.event.MouseAdapter() {
+		btnCapNhatDV = new JButton("Cập nhật");
+		btnCapNhatDV.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
-				btnCapNhatSP.setBackground(hoverColor);
+				btnCapNhatDV.setBackground(hoverColor);
 			}
 
 			public void mouseExited(java.awt.event.MouseEvent evt) {
-				btnCapNhatSP.setBackground(mainColor);
+				btnCapNhatDV.setBackground(mainColor);
 			}
 		});
-		btnCapNhatSP.setBorder(null);
+		btnCapNhatDV.setBorder(null);
 
-		btnCapNhatSP.setIcon(new ImageIcon(getClass().getResource("/images/icons8-pencil-16.png")));
-		btnCapNhatSP.setForeground(whiteColor);
-		btnCapNhatSP.setFont(tahoma14Bold);
-		btnCapNhatSP.setFocusable(false);
-		btnCapNhatSP.setBackground(mainColor);
+		btnCapNhatDV.setIcon(new ImageIcon(getClass().getResource("/images/icons8-pencil-16.png")));
+		btnCapNhatDV.setForeground(whiteColor);
+		btnCapNhatDV.setFont(tahoma14Bold);
+		btnCapNhatDV.setFocusable(false);
+		btnCapNhatDV.setBackground(mainColor);
 
 		// btn Thêm sản phẩm
 		btnThem = new JButton("Thêm");
@@ -503,9 +503,9 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 		btnThem.setFocusable(false);
 		btnThem.setBackground(mainColor);
 
-		cmbLoaiSanPham = new JComboBox<String>();
-		cmbLoaiSanPham.setFont(tahoma16);
-		cmbLoaiSanPham.setBackground(whiteColor);
+		cmbLoaiDichVu = new JComboBox<String>();
+		cmbLoaiDichVu.setFont(tahoma16);
+		cmbLoaiDichVu.setBackground(whiteColor);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.TRAILING).addGroup(gl_panel
 				.createSequentialGroup().addContainerGap()
@@ -523,19 +523,19 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 																GroupLayout.PREFERRED_SIZE))
 												.addPreferredGap(ComponentPlacement.RELATED)
 												.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-														.addComponent(cmbLoaiSanPham, 0, 241, Short.MAX_VALUE)
+														.addComponent(cmbLoaiDichVu, 0, 241, Short.MAX_VALUE)
 														.addComponent(txtDonGia, GroupLayout.DEFAULT_SIZE, 241,
 																Short.MAX_VALUE)
-														.addComponent(txtTenSP, GroupLayout.DEFAULT_SIZE, 241,
+														.addComponent(txtTenDV, GroupLayout.DEFAULT_SIZE, 241,
 																Short.MAX_VALUE)
-														.addComponent(txtMaSP, Alignment.TRAILING,
+														.addComponent(txtMaDV, Alignment.TRAILING,
 																GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)))
 										.addGroup(gl_panel.createSequentialGroup()
 												.addComponent(btnThem, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
 												.addPreferredGap(ComponentPlacement.UNRELATED)
-												.addComponent(btnCapNhatSP, GroupLayout.DEFAULT_SIZE, 117,
+												.addComponent(btnCapNhatDV, GroupLayout.DEFAULT_SIZE, 117,
 														Short.MAX_VALUE)
-												.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(btnXoaSP,
+												.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(btnXoaDV,
 														GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)))
 								.addGap(41))
 						.addGroup(gl_panel.createSequentialGroup()
@@ -546,16 +546,16 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 				.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE).addGap(35)
 				.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_panel.createSequentialGroup()
-								.addComponent(txtMaSP, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtMaDV, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 								.addGap(18)
 								.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-										.addComponent(txtTenSP, GroupLayout.PREFERRED_SIZE, 24,
+										.addComponent(txtTenDV, GroupLayout.PREFERRED_SIZE, 24,
 												GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 19,
 												GroupLayout.PREFERRED_SIZE))
 								.addGap(18)
 								.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-										.addComponent(cmbLoaiSanPham, GroupLayout.PREFERRED_SIZE,
+										.addComponent(cmbLoaiDichVu, GroupLayout.PREFERRED_SIZE,
 												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 19,
 												GroupLayout.PREFERRED_SIZE))
@@ -569,20 +569,20 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 				.addGap(65)
 				.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnThem, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnXoaSP, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnCapNhatSP, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnXoaDV, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnCapNhatDV, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 				.addContainerGap()));
 		panel.setLayout(gl_panel);
 
 		setLayout(groupLayout);
 		btnThem.addActionListener(this);
-		btnXoaSP.addActionListener(this);
-		btnCapNhatSP.addActionListener(this);
+		btnXoaDV.addActionListener(this);
+		btnCapNhatDV.addActionListener(this);
 
 		// LOẠI SẢN PHẨM
-		btnThemLoaiSP.addActionListener(this);
-		btnXoaLoaiSP.addActionListener(this);
-		btnCapNhatLoaiSP.addActionListener(this);
+		btnThemLoaiDV.addActionListener(this);
+		btnXoaLoaiDV.addActionListener(this);
+		btnCapNhatLoaiDV.addActionListener(this);
 
 		// LOAD DATA
 		loadDataToTblLoaiSanPham();
@@ -596,7 +596,7 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 	 * Tạo default table model cho sản phẩm add các row cho tblLoaiSanPham
 	 */
 	private void initTableSanPham() {
-		modelSanPham = new DefaultTableModel() {
+		modelDichVu = new DefaultTableModel() {
 			/**
 			 * 
 			 */
@@ -608,15 +608,15 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 			}
 		};
 
-		modelSanPham.setColumnIdentifiers(new String[] { "Mã dịch vụ", "Tên dịch vụ", "Loại dịch vụ", "Đơn giá" });
-		tblSanPham.setModel(modelSanPham);
+		modelDichVu.setColumnIdentifiers(new String[] { "Mã dịch vụ", "Tên dịch vụ", "Loại dịch vụ", "Đơn giá" });
+		tblDichVu.setModel(modelDichVu);
 	}
 
 	/**
 	 * Tạo default table model cho loại sản phẩm , add các row cho tblLoaiSanPham
 	 */
 	private void initTableLoaiSP() {
-		modelLoaiSP = new DefaultTableModel() {
+		modelLoaiDV = new DefaultTableModel() {
 			/**
 			 * 
 			 */
@@ -628,29 +628,29 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 			}
 		};
 
-		modelLoaiSP.setColumnIdentifiers(new String[] { "Mã loại dịch vụ", "Tên loại dịch vụ" });
-		tblLoaiSanPham.setModel(modelLoaiSP);
+		modelLoaiDV.setColumnIdentifiers(new String[] { "Mã loại dịch vụ", "Tên loại dịch vụ" });
+		tblLoaiDichVu.setModel(modelLoaiDV);
 	}
 	/* =================================== */
 
 	/* ==================Tải dữ liệu vào 2 table=============== */
-	private void loadDataToTblLoaiSanPham() {
-		LoaiSanPhamDAO ds = new LoaiSanPhamDAO();
-		List<LoaiSanPham> list = ds.getDanhSachLoaiSanPham();
-		for (LoaiSanPham lsp : list) {
-			modelLoaiSP.addRow(new Object[] { lsp.getMaLoaiSP(), lsp.getTenLoaiSP() });
+	private void loadDataToTblLoaiDichVu() {
+		LoaiDichVuDAO ds = new LoaiDichVuDAO();
+		List<LoaiDichVu> list = ds.getDanhSachLoaiDichVu();
+		for (LoaiDichVu lsp : list) {
+			modelLoaiDV.addRow(new Object[] { lsp.getMaLoaiSP(), lsp.getTenLoaiDV() });
 		}
 	}
 
 	private void loadDataToTblSanPham() {
-		SanPhamDAO ds = new SanPhamDAO();
-		List<SanPham> list = ds.getDanhSachSanPham();
+		DichVuDAO ds = new DichVuDAO();
+		List<DichVu> list = ds.getDanhSachSanPham();
 
-		for (SanPham sanPham : list) {
-			modelSanPham.addRow(new Object[] { sanPham.getMaSanPham(), sanPham.getTenSanPham(),
-					sanPham.getLoaiSanPham().getTenLoaiSP(), sanPham.getDonGia() });
+		for (DichVu dichVu : list) {
+			modelDichVu.addRow(new Object[] { dichVu.getMaDichVu(), dichVu.getTenDichVu(),
+					dichVu.getLoaiDichVu().getTenLoaiDV(), dichVu.getDonGia() });
 		}
-		tblSanPham.setModel(modelSanPham);
+		tblDichVu.setModel(modelDichVu);
 	}
 	/* =================================== */
 
@@ -659,44 +659,44 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 
 	private void loadDataToCmbLoaiSanPham() {
 		LoaiSanPhamDAO loaiSanPhamDAO = new LoaiSanPhamDAO();
-		List<LoaiSanPham> lsp = loaiSanPhamDAO.getDanhSachLoaiSanPham();
-		for (LoaiSanPham loaiSanPham : lsp) {
-			cmbLoaiSanPham.addItem(loaiSanPham.getTenLoaiSP());
+		List<LoaiDichVu> lsp = loaiSanPhamDAO.getDanhSachLoaiSanPham();
+		for (LoaiDichVu loaiSanPham : lsp) {
+			cmbLoaiDichVu.addItem(loaiSanPham.getTenLoaiSP());
 		}
 	}
 	/* =================================== */
 
 	/* ================Xóa rỗng textfields================= */
 	private void xoaRongTextfieldLoaiSP() {
-		txtMaLoaiSP.setText("");
-		txtTenLoaiSP.setText("");
-		txtMaLoaiSP.requestFocus();
+		txtMaLoaiDV.setText("");
+		txtTenLoaiDV.setText("");
+		txtMaLoaiDV.requestFocus();
 	}
 
 	private void xoaRongTextfieldsSanPham() {
-		txtMaSP.setText("");
-		txtTenSP.setText("");
+		txtMaDV.setText("");
+		txtTenDV.setText("");
 		txtDonGia.setText("");
-		cmbLoaiSanPham.setSelectedItem(0);
-		tblSanPham.setRowSorter(null);
-		txtMaSP.requestFocus();
+		cmbLoaiDichVu.setSelectedItem(0);
+		tblDichVu.setRowSorter(null);
+		txtMaDV.requestFocus();
 	}
 	/* =================================== */
 
 	/* ==================Tạo đối tượng sản phẩm và loại sản phẩm================= */
-	private LoaiSanPham createLoaiSanPham() {
-		LoaiSanPham loaiSanPham = new LoaiSanPham();
-		loaiSanPham.setTenLoaiSP(txtTenLoaiSP.getText());
+	private LoaiDichVu createLoaiDichVu() {
+		LoaiDichVu loaiSanPham = new LoaiDichVu();
+		loaiSanPham.setTenLoaiDV(txtTenLoaiDV.getText());
 		return loaiSanPham;
 	}
 
-	private SanPham createSanPham() {
-		SanPham sp = new SanPham();
-		LoaiSanPham loaiSanPham = new LoaiSanPham();
-		LoaiSanPhamDAO loaiSanPhamDAO = new LoaiSanPhamDAO();
+	private DichVu createSanPham() {
+		DichVu dv = new DichVu();
+		LoaiDichVu loaiSanPham = new LoaiDichVu();
+		LoaiSanPhamDAO loaiDichVuDAO = new LoaiDichVuDAO();
 
-		String tenLoaiSP = (String) cmbLoaiSanPham.getSelectedItem();
-		String maLoaiSP = loaiSanPhamDAO.getMaTheoTenLoai(tenLoaiSP);
+		String tenLoaiDV = (String) cmbLoaiSanPham.getSelectedItem();
+		String maLoaiDV = loaiDichVuDAO.getMaTheoTenLoai(tenLoaiSP);
 		loaiSanPham.setMaLoaiSP(maLoaiSP);
 		loaiSanPham.setTenLoaiSP(tenLoaiSP);
 
@@ -735,8 +735,8 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 		// THÊM SẢN PHẨM
 		if (o.equals(btnThem)) {
 
-			SanPham sanPham = createSanPham();
-			SanPhamDAO sanPhamDAO = new SanPhamDAO();
+			DichVu sanPham = createSanPham();
+			DichVuDAO sanPhamDAO = new DichVuDAO();
 
 			StringBuilder sb = new StringBuilder();
 			dataValidateSP(sb);
@@ -767,9 +767,9 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 
 			int row = tblSanPham.getSelectedRow();
 
-			SanPham sp = createSanPham();
+			DichVu sp = createSanPham();
 			sp.setMaSanPham(txtMaSP.getText());
-			SanPhamDAO sanPhamDAO = new SanPhamDAO();
+			DichVuDAO sanPhamDAO = new DichVuDAO();
 
 			if (row >= 0) {
 				StringBuilder sb = new StringBuilder();
@@ -813,7 +813,7 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 		if (o.equals(btnXoaSP)) {
 
 			int row = tblSanPham.getSelectedRow();
-			SanPhamDAO spDAO = new SanPhamDAO();
+			DichVuDAO spDAO = new DichVuDAO();
 
 			if (row >= 0) {
 				String maSP = (String) tblSanPham.getValueAt(row, 0);
@@ -860,7 +860,7 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 		// THÊM LOẠI SẢN PHẨM
 		if (o.equals(btnThemLoaiSP)) {
 
-			LoaiSanPham lsp = createLoaiSanPham();
+			LoaiDichVu lsp = createLoaiSanPham();
 			LoaiSanPhamDAO loaiSPDAO = new LoaiSanPhamDAO();
 
 			StringBuilder sb = new StringBuilder();
@@ -892,7 +892,7 @@ public class PnlQuanLySanPham extends JPanel implements ActionListener {
 
 			int row = tblLoaiSanPham.getSelectedRow();
 
-			LoaiSanPham lsp = createLoaiSanPham();
+			LoaiDichVu lsp = createLoaiSanPham();
 			lsp.setMaLoaiSP(txtMaLoaiSP.getText());
 			LoaiSanPhamDAO loaiSanPhamDAO = new LoaiSanPhamDAO();
 

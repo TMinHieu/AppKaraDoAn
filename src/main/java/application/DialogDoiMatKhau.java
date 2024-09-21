@@ -22,12 +22,7 @@ import helpers.DataValidator;
 import helpers.MessageDialogHelpers;
 import helpers.ShareData;
 
-
 public class DialogDoiMatKhau extends JDialog implements ActionListener {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JPasswordField txtMatKhauMoi;
@@ -39,14 +34,14 @@ public class DialogDoiMatKhau extends JDialog implements ActionListener {
 	 * Create the dialog.
 	 */
 	public DialogDoiMatKhau() {
-		
-		/**Color & font **/
+
+		/** Color & font **/
 		Color whiteColor = new Color(255, 255, 255);
 		Color mainColor = new Color(88, 177, 159);
-		
+
 		Font tahoma16 = new Font("Tahoma", Font.PLAIN, 16);
 		Font tahoma20 = new Font("Tahoma", Font.BOLD, 20);
-		
+
 		setFont(new Font("Dialog", Font.PLAIN, 16));
 		setForeground(new Color(0, 0, 0));
 		setTitle("\u0110\u1ED5i m\u1EADt kh\u1EA9u");
@@ -110,7 +105,7 @@ public class DialogDoiMatKhau extends JDialog implements ActionListener {
 		btnDong.setFont(tahoma16);
 		btnDong.setBackground(mainColor);
 		btnDong.setForeground(whiteColor);
-		
+
 		btnXacNhan.addActionListener(this);
 		btnDong.addActionListener(this);
 	}
@@ -118,7 +113,7 @@ public class DialogDoiMatKhau extends JDialog implements ActionListener {
 	private void dataValidate(StringBuilder sb) {
 		DataValidator.validateEmpty(txtNhapLaiMK, sb, "Chưa nhập lại mật khẩu");
 		DataValidator.validateEmpty(txtMatKhauMoi, sb, "Mật khẩu không được để trống");
-		
+
 		DataValidator.validateMatKhau(txtMatKhauMoi, sb,
 				"Mật khẩu phải có ít nhất 1 chữ thường, 1 chữ hoa, 1 kí tự đặt biệt, không có khoảng trắng và tối thiểu 8 kí tự");
 	}
@@ -126,14 +121,13 @@ public class DialogDoiMatKhau extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
-		
+
 		// xác nhận
 		if (o.equals(btnXacNhan)) {
 			StringBuilder sb = new StringBuilder();
 			dataValidate(sb);
 			if (sb.length() > 0) {
-				MessageDialogHelpers.showErrorDialog(contentPanel, "Lỗi",
-						sb.toString());
+				MessageDialogHelpers.showErrorDialog(contentPanel, "Lỗi", sb.toString());
 				return;
 			}
 
@@ -162,12 +156,12 @@ public class DialogDoiMatKhau extends JDialog implements ActionListener {
 						"Mật khẩu và nhập lại mật khẩu chưa giống nhau");
 			}
 		}
-		
+
 		// đóng
 		if (o.equals(btnDong)) {
 			dispose();
 		}
-		
+
 	}
-	
+
 }

@@ -12,9 +12,6 @@ public class DialogDatTruoc extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private PnlDatTruoc pnlDatTruoc;
-	/**
-	 * Create the dialog.
-	 */
 	public DialogDatTruoc() {
 		setBounds(100, 100, 1154, 670);
 		setResizable(false);

@@ -1,9 +1,3 @@
-/**
- * Tác giả: La Võ Minh Quân - mssv:19441111 - Nhóm 4
- * 
- * Ngày tạo:27/10/2021
- * Mô tả: lớp dao dùng để thao tác với bảng Nhan_Vien trong cơ sở dữ liệu
- */
 package dao;
 
 import java.io.IOException;

@@ -1,8 +1,3 @@
-/**
- * Tác giả: Nguyễn Hồng Quân - mssv:19445101 Đoàn Thị Mỹ Linh mssv:19442391 -chỉnh sửa(10/11/2021)- Nhóm 4
- * Mô tả: lớp thực thể chứa dữ liệu của Khách Hàng
- * Ngày tạo: 30/10/2021
- */
 package entity;
 
 import java.util.Objects;

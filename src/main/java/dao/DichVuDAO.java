@@ -1,11 +1,3 @@
-/**
- * Tác giả: Đoàn Thị Mỹ Linh - mssv:19442391 - Nhóm 4
- * 
- * Ngày tạo:31/10/2021
- * Mô tả: lớp dao dùng để thao tác với bảng San_Pham trong cơ sở dữ liệu
- * 
- * *Quân đã sửa
- */
 package dao;
 
 import java.io.IOException;
@@ -17,19 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import connectDB.MSSQLConnection;
-import entity.LoaiSanPham;
-import entity.SanPham;
+import entity.LoaiDichVu;
+import entity.DichVu;
 
-public class SanPhamDAO {
+public class DichVuDAO {
 
 	/**
 	 * lấy tất cả sản phẩm hiện có trong csdl
 	 * 
 	 * @return danh sách sản phẩm
 	 */
-	public List<SanPham> getDanhSachSanPham() {
+	public List<DichVu> getDanhSachSanPham() {
 		LoaiSanPhamDAO loaiSanPhamDAO = new LoaiSanPhamDAO();
-		List<SanPham> listSanPham = new ArrayList<SanPham>();
+		List<DichVu> listSanPham = new ArrayList<DichVu>();
 
 		String sql = "SELECT * FROM San_Pham";
 
@@ -48,9 +40,9 @@ public class SanPhamDAO {
 				double giaTien = rs.getDouble(3);
 
 				String maLoaiSanPham = rs.getString(4);
-				LoaiSanPham loaiSanPham = loaiSanPhamDAO.getLoaiSanPhamTheoMaLoai(maLoaiSanPham);
+				LoaiDichVu loaiSanPham = loaiSanPhamDAO.getLoaiSanPhamTheoMaLoai(maLoaiSanPham);
 
-				SanPham sanPham = new SanPham(maSanPham, tenSP, giaTien);
+				DichVu sanPham = new DichVu(maSanPham, tenSP, giaTien);
 				sanPham.setLoaiSanPham(loaiSanPham);
 
 				listSanPham.add(sanPham);
@@ -75,7 +67,7 @@ public class SanPhamDAO {
 	 * @return trả về true nếu insert thành công trả về false nếu insert thất bại
 	 * @throws IOException
 	 */
-	public boolean addSanPham(SanPham sanPham) {
+	public boolean addSanPham(DichVu sanPham) {
 		String sql = "INSERT INTO [dbo].[San_Pham] ([TenSanPham],[DonGia],[MaLoaiSP])" + " VALUES(?,?,?)";
 		int rs = 0;
 
@@ -85,10 +77,10 @@ public class SanPhamDAO {
 
 			prepareStatement = con.prepareStatement(sql);
 
-			prepareStatement.setString(1, sanPham.getTenSanPham());
+			prepareStatement.setString(1, sanPham.getTenDichVu());
 			prepareStatement.setDouble(2, sanPham.getDonGia());
 
-			String ma = sanPham.getLoaiSanPham().getMaLoaiSP().replace("LSP", "");
+			String ma = sanPham.getLoaiDichVu().getMaLoaiDV().replace("LDV", "");
 			prepareStatement.setInt(3, Integer.parseInt(ma));
 
 			rs = prepareStatement.executeUpdate();
@@ -111,7 +103,7 @@ public class SanPhamDAO {
 	 * @param sp sản phẩm cần update
 	 * @return
 	 */
-	public boolean updateSanPham(SanPham sp) {
+	public boolean updateSanPham(DichVu sp) {
 		String sql = "UPDATE San_Pham SET TenSanPham=?, DonGia=?, MaLoaiSP=?" + " where MaSanPham = ?";
 		int rs = 0;
 
@@ -151,8 +143,8 @@ public class SanPhamDAO {
 	 * @param maSanPham
 	 * @return SanPham
 	 */
-	public SanPham getSanPhamTheoMa(String maSanPham) {
-		SanPham sanPham = new SanPham();
+	public DichVu getSanPhamTheoMa(String maSanPham) {
+		DichVu sanPham = new DichVu();
 		LoaiSanPhamDAO loaiSanPhamDAO = new LoaiSanPhamDAO();
 		String sql = "SELECT * FROM San_Pham " + " where MaSanPham = ?";
 
@@ -171,7 +163,7 @@ public class SanPhamDAO {
 				sanPham.setTenSanPham(rs.getString(2));
 				sanPham.setDonGia(rs.getDouble(3));
 
-				LoaiSanPham loaiSanPham = loaiSanPhamDAO.getLoaiSanPhamTheoMaLoai(rs.getString("MaLoaiSP"));
+				LoaiDichVu loaiSanPham = loaiSanPhamDAO.getLoaiSanPhamTheoMaLoai(rs.getString("MaLoaiSP"));
 
 				sanPham.setLoaiSanPham(loaiSanPham);
 			}
@@ -195,8 +187,8 @@ public class SanPhamDAO {
 	 * @param tenSanPham
 	 * @return SanPham
 	 */
-	public SanPham getSanPhamTheoTen(String tenSanPham) {
-		SanPham sanPham = new SanPham();
+	public DichVu getSanPhamTheoTen(String tenSanPham) {
+		DichVu sanPham = new DichVu();
 		LoaiSanPhamDAO loaiSanPhamDAO = new LoaiSanPhamDAO();
 		String sql = "SELECT * FROM San_Pham " + " where TenSanPham = ?";
 
@@ -217,7 +209,7 @@ public class SanPhamDAO {
 				int ma = rs.getInt("MaLoaiSP");
 				String maLoaiSP = "LSP" + ma;
 
-				LoaiSanPham loaiSanPham = loaiSanPhamDAO.getLoaiSanPhamTheoMaLoai(maLoaiSP);
+				LoaiDichVu loaiSanPham = loaiSanPhamDAO.getLoaiSanPhamTheoMaLoai(maLoaiSP);
 				sanPham.setLoaiSanPham(loaiSanPham);
 			}
 		} catch (Exception e) {

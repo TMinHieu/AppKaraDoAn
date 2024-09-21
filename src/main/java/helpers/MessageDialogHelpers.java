@@ -1,11 +1,3 @@
-/**
- * 
- * Tác giả: La Võ Minh Quân - MSSV:19441111 - Nhóm 4
- * Ngày tạo: 23/10/2021
- * 
- * Mô tả: Lớp MessageDialogHelpers gồm những phương thức show các thông tin (message) ở nhiều dạng cho người dùng
- * 
- */
 package helpers;
 
 import java.awt.Component;

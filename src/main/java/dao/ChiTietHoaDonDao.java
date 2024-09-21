@@ -1,6 +1,3 @@
-/**
- * La Võ Minh Quân
- */
 package dao;
 
 import java.sql.Connection;
@@ -14,7 +11,7 @@ import connectDB.MSSQLConnection;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
 import entity.Phong;
-import entity.SanPham;
+import entity.DichVu;
 
 public class ChiTietHoaDonDao {
 	/**
@@ -76,7 +73,7 @@ public class ChiTietHoaDonDao {
 				ChiTietHoaDon cthd = new ChiTietHoaDon();
 				HoaDonDao hoaDonDao = new HoaDonDao();
 				PhongDAO phongDao = new PhongDAO();
-				SanPhamDAO sanPhamDao = new SanPhamDAO();
+				DichVuDAO sanPhamDao = new DichVuDAO();
 
 				HoaDon hoaDon = hoaDonDao.getHoaDonTheoMa(maHoaDon);
 
@@ -84,7 +81,7 @@ public class ChiTietHoaDonDao {
 				Phong phong = phongDao.getPhongTheoMa(maPhong);
 
 				String maSanPham = "SP" + rs.getInt("MaSanPham");
-				SanPham sanPham = sanPhamDao.getSanPhamTheoMa(maSanPham);
+				DichVu sanPham = sanPhamDao.getSanPhamTheoMa(maSanPham);
 
 				cthd.setHoaDon(hoaDon);
 				cthd.setPhong(phong);
@@ -120,7 +117,7 @@ public class ChiTietHoaDonDao {
 				ChiTietHoaDon cthd = new ChiTietHoaDon();
 				HoaDonDao hoaDonDao = new HoaDonDao();
 				PhongDAO phongDao = new PhongDAO();
-				SanPhamDAO sanPhamDao = new SanPhamDAO();
+				DichVuDAO sanPhamDao = new DichVuDAO();
 
 				int maHoaDon = rs.getInt("MaHoaDon");
 
@@ -130,7 +127,7 @@ public class ChiTietHoaDonDao {
 				Phong phong = phongDao.getPhongTheoMa(maPhong);
 
 				String maSanPham = "SP" + rs.getInt("MaSanPham");
-				SanPham sanPham = sanPhamDao.getSanPhamTheoMa(maSanPham);
+				DichVu sanPham = sanPhamDao.getSanPhamTheoMa(maSanPham);
 
 				cthd.setHoaDon(hoaDon);
 				cthd.setPhong(phong);
@@ -168,8 +165,8 @@ public class ChiTietHoaDonDao {
 			int maHD = Integer.parseInt(maHoaDon.replaceAll("HD", ""));
 			prepareStatement.setInt(2, maHD);
 
-			SanPhamDAO sanPhamDao = new SanPhamDAO();
-			SanPham sanPham = sanPhamDao.getSanPhamTheoTen(tenSanPham);
+			DichVuDAO sanPhamDao = new DichVuDAO();
+			DichVu sanPham = sanPhamDao.getSanPhamTheoTen(tenSanPham);
 			int maSanPham = Integer.parseInt(sanPham.getMaSanPham().replaceAll("SP", ""));
 			prepareStatement.setInt(3, maSanPham);
 
@@ -199,8 +196,8 @@ public class ChiTietHoaDonDao {
 
 			int maHD = Integer.parseInt(maHoaDon.replaceAll("HD", ""));
 
-			SanPhamDAO sanPhamDao = new SanPhamDAO();
-			SanPham sanPham = sanPhamDao.getSanPhamTheoTen(tenSanPham);
+			DichVuDAO sanPhamDao = new DichVuDAO();
+			DichVu sanPham = sanPhamDao.getSanPhamTheoTen(tenSanPham);
 			int maSanPham = Integer.parseInt(sanPham.getMaSanPham().replaceAll("SP", ""));
 
 			prepareStatement.setInt(1, maHD);
@@ -232,8 +229,8 @@ public class ChiTietHoaDonDao {
 
 			int maHD = Integer.parseInt(maHoaDon.replaceAll("HD", ""));
 
-			SanPhamDAO sanPhamDao = new SanPhamDAO();
-			SanPham sanPham = sanPhamDao.getSanPhamTheoTen(tenSanPham);
+			DichVuDAO sanPhamDao = new DichVuDAO();
+			DichVu sanPham = sanPhamDao.getSanPhamTheoTen(tenSanPham);
 			int maSanPham = Integer.parseInt(sanPham.getMaSanPham().replaceAll("SP", ""));
 
 			prepareStatement.setInt(1, maHD);

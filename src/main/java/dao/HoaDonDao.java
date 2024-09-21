@@ -1,6 +1,3 @@
-/**
- * La Võ Minh Quân
- */
 package dao;
 
 import java.sql.Connection;
@@ -16,11 +13,7 @@ import entity.NhanVien;
 import helpers.ShareData;
 
 public class HoaDonDao {
-	/**
-	 * 
-	 * @param HoaDon
-	 * @return
-	 */
+
 	public boolean addHoaDon(HoaDon hoaDon) {
 		String sql = "INSERT INTO [dbo].[Hoa_Don] ([MaNhanVien],[TenKhachHang],[NgayTao])" + " VALUES(?,?,?)";
 		int rs = 0;

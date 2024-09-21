@@ -1,8 +1,3 @@
-/**
- * Tác giả: Nguyễn Hồng Quân - mssv:19445101 - Nhóm 4
- * Mô tả:  lớp dao dùng để thao tác với bảng Loai_Phong trong cơ sở dữ liệu
- * Ngày tạo: 31/10/2021
- */
 package dao;
 
 import java.sql.Connection;

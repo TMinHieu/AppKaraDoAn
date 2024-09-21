@@ -1,11 +1,3 @@
-/**
- * Tác giả: Đoàn Thị Mỹ Linh - mssv:19442391 - Nhóm 4
- * 
- * Ngày tạo:31/10/2021
- * Mô tả: lớp dao dùng để thao tác với bảng Loai_San_Pham trong cơ sở dữ liệu
- * 
- * Quân đã sửa
- */
 package dao;
 
 import java.io.IOException;
@@ -17,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import connectDB.MSSQLConnection;
-import entity.LoaiSanPham;
+import entity.LoaiDichVu;
 
 public class LoaiSanPhamDAO {
 	/**
@@ -26,8 +18,8 @@ public class LoaiSanPhamDAO {
 	 * @return danh sách loại sản phẩm
 	 */
 
-	public List<LoaiSanPham> getDanhSachLoaiSanPham() {
-		List<LoaiSanPham> listLoaiSanPham = new ArrayList<LoaiSanPham>();
+	public List<LoaiDichVu> getDanhSachLoaiSanPham() {
+		List<LoaiDichVu> listLoaiSanPham = new ArrayList<LoaiDichVu>();
 		String sql = "SELECT * FROM Loai_SP";
 
 		Connection con = MSSQLConnection.getJDBCConnection();
@@ -39,7 +31,7 @@ public class LoaiSanPhamDAO {
 			ResultSet rs = prepareStatement.executeQuery();
 
 			while (rs.next()) {
-				LoaiSanPham loaisp = createLoaiSanPham(rs);
+				LoaiDichVu loaisp = createLoaiSanPham(rs);
 
 				int maLoaiSp = rs.getInt("MaLoaiSP");
 				loaisp.setMaLoaiSP("LSP" + maLoaiSp);
@@ -67,7 +59,7 @@ public class LoaiSanPhamDAO {
 	 * @return trả về true nếu insert thành công trả về false nếu insert thất bại
 	 * @throws IOException
 	 */
-	public boolean addLoaiSanPham(LoaiSanPham loaiSanPham) {
+	public boolean addLoaiSanPham(LoaiDichVu loaiSanPham) {
 		String sql = "INSERT INTO [dbo].[Loai_SP] ([TenLoaiSP])" + " VALUES(?)";
 		int rs = 0;
 
@@ -101,7 +93,7 @@ public class LoaiSanPhamDAO {
 	 * @param lsp loại sản phẩm cần update
 	 * @return
 	 */
-	public boolean updateLoaiSanPham(LoaiSanPham loaiSanPham) {
+	public boolean updateLoaiSanPham(LoaiDichVu loaiSanPham) {
 		String sql = "UPDATE Loai_SP SET TenLoaiSP=?" + " where MaLoaiSP = ?";
 		int rs = 0;
 
@@ -140,8 +132,8 @@ public class LoaiSanPhamDAO {
 	 * @param maLoaiSanPham
 	 * @return LoaiSanPham
 	 */
-	public LoaiSanPham getLoaiSanPhamTheoMaLoai(String maLoaiSanPham) {
-		LoaiSanPham loaiSanPham = null;
+	public LoaiDichVu getLoaiSanPhamTheoMaLoai(String maLoaiSanPham) {
+		LoaiDichVu loaiSanPham = null;
 		String sql = "SELECT * FROM Loai_SP " + " where MaLoaiSP = ?";
 
 		Connection con = MSSQLConnection.getJDBCConnection();
@@ -214,8 +206,8 @@ public class LoaiSanPhamDAO {
 	 * @param rs resultset truyền vào
 	 * @return loại sản phẩm
 	 */
-	private LoaiSanPham createLoaiSanPham(final ResultSet rs) {
-		LoaiSanPham loaisp = new LoaiSanPham();
+	private LoaiDichVu createLoaiSanPham(final ResultSet rs) {
+		LoaiDichVu loaisp = new LoaiDichVu();
 
 		try {
 			loaisp.setTenLoaiSP(rs.getString("TenLoaiSP"));

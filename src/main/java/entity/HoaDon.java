@@ -1,6 +1,3 @@
-/**
- * La Võ Minh Quân
- */
 package entity;
 
 import java.util.Date;

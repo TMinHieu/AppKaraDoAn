@@ -1,10 +1,3 @@
-/**
- * Tác giả : La Võ Minh Quân - MSSV:19441111 - Nhóm 4
- * 
- * Ngày tạo:27/10/2021
- * 
- * Lớp chứa những phương thức giúp điều chỉnh kích thước hình ảnh cũng như chuyển các đối tượng mảng byte sang hình ảnh
- */
 package helpers;
 
 import java.awt.Image;

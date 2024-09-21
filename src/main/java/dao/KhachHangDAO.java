@@ -1,8 +1,3 @@
-/**
- * Tác giả: Nguyễn Hồng Quân - mssv:19445101 Đoàn Thị Mỹ Linh mssv:19442391 -chỉnh sửa(10/11/2021)- Nhóm 4
- * Mô tả: lớp dao dùng để thao tác với bảng Khach_Hang trong cơ sở dữ liệu
- * Ngày tạo: 02/11/2021
- */
 package dao;
 
 import java.sql.Connection;

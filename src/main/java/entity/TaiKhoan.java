@@ -1,12 +1,3 @@
-/**
- * 
- * Tác giả: La Võ Minh Quân - MSSV:19441111 - Nhóm 4
- * Ngày tạo: 23/10/2021
- * 
- * Mô tả: Lớp thực thể tài khoản chứa dữ liệu để đăng nhập vào ứng dụng
- * dữ liệu gồm : tenDangNhap (tên đăng nhập), matKhau(mật khẩu đăng nhập), vaiTro(vai trò)
- */
-
 package entity;
 
 import java.util.Objects;

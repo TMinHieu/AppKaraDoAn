@@ -1,7 +1,3 @@
-/**
- * Tác giả: La Võ Minh Quân - mssv:19441111 - Nhóm 4
- * Mô tả: lớp thực thể chứa dữ liệu của nhân viên lễ tân
- */
 package entity;
 
 import java.util.Arrays;

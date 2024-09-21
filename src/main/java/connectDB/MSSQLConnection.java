@@ -1,11 +1,3 @@
-/**
- * 
- * Tác giả: La Võ Minh Quân - MSSV:19441111 - Nhóm 4
- * Ngày tạo: 23/10/2021
- * 
- * Mô tả: Lớp MSSQLConnection giúp kết nối với cơ sở dữ liệu Microsoft SQL Server 
- * 
- */
 package connectDB;
 
 import java.sql.Connection;

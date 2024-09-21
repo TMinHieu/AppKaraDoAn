@@ -39,12 +39,12 @@ import dao.DonDatPhongDAO;
 import dao.HoaDonDao;
 import dao.LoaiSanPhamDAO;
 import dao.PhongDAO;
-import dao.SanPhamDAO;
+import dao.DichVuDAO;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
-import entity.LoaiSanPham;
+import entity.LoaiDichVu;
 import entity.Phong;
-import entity.SanPham;
+import entity.DichVu;
 import helpers.DataValidator;
 import helpers.MessageDialogHelpers;
 import helpers.ShareData;
@@ -501,9 +501,9 @@ public class PnlThanhToan extends JPanel implements ActionListener {
 				// set 2 cái combo nó tắt
 				int row = tblDichVu.getSelectedRow();
 				if (row >= 0) {
-					SanPhamDAO sanPhamDao = new SanPhamDAO();
+					DichVuDAO sanPhamDao = new DichVuDAO();
 					String tenSanPham = tblDichVu.getValueAt(row, 0).toString();
-					SanPham sanPham = sanPhamDao.getSanPhamTheoTen(tenSanPham);
+					DichVu sanPham = sanPhamDao.getSanPhamTheoTen(tenSanPham);
 
 					cmbLoaiThucPham.setSelectedItem(sanPham.getLoaiSanPham().getTenLoaiSP());
 					cmbTenThucPham.setSelectedItem(sanPham.getTenSanPham());
@@ -712,16 +712,16 @@ public class PnlThanhToan extends JPanel implements ActionListener {
 	 */
 	private void loadDataToCmbLoaiSanPham() {
 		LoaiSanPhamDAO loaiSanPhamDao = new LoaiSanPhamDAO();
-		List<LoaiSanPham> dsLoaiSanPham = loaiSanPhamDao.getDanhSachLoaiSanPham();
-		for (LoaiSanPham loaiSanPham : dsLoaiSanPham) {
+		List<LoaiDichVu> dsLoaiSanPham = loaiSanPhamDao.getDanhSachLoaiSanPham();
+		for (LoaiDichVu loaiSanPham : dsLoaiSanPham) {
 			cmbLoaiThucPham.addItem(loaiSanPham.getTenLoaiSP());
 		}
 	}
 
 	private void loadDataToCmbTenSanPham() {
-		SanPhamDAO sanPhamDAO = new SanPhamDAO();
-		List<SanPham> sp = sanPhamDAO.getDanhSachSanPham();
-		for (SanPham sanPham : sp) {
+		DichVuDAO sanPhamDAO = new DichVuDAO();
+		List<DichVu> sp = sanPhamDAO.getDanhSachSanPham();
+		for (DichVu sanPham : sp) {
 			cmbTenThucPham.addItem(sanPham.getTenSanPham());
 		}
 	}
@@ -730,7 +730,7 @@ public class PnlThanhToan extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		if (o.equals(cmbLoaiThucPham)) {
-			SanPhamDAO sanPhamDao = new SanPhamDAO();
+			DichVuDAO sanPhamDao = new DichVuDAO();
 			List<String> dsTenSanPham = sanPhamDao.getSanPhamTheoLoai((String) cmbLoaiThucPham.getSelectedItem());
 			cmbTenThucPham.removeAllItems();
 			for (String tenSanPham : dsTenSanPham) {
@@ -773,7 +773,7 @@ public class PnlThanhToan extends JPanel implements ActionListener {
 
 				cthd.setHoaDon(hoaDon);
 				cthd.setPhong(phongDao.getPhongTheoMa(tblPhongDangSuDung.getValueAt(row, 1).toString()));
-				SanPham sanPham = createSanPham();
+				DichVu sanPham = createSanPham();
 				cthd.setSanPham(sanPham);
 				cthd.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
 
@@ -954,11 +954,11 @@ public class PnlThanhToan extends JPanel implements ActionListener {
 		lblTongTienHoaDon.setText("");
 	}
 
-	private SanPham createSanPham() {
+	private DichVu createSanPham() {
 		String tenSanPham = cmbTenThucPham.getSelectedItem().toString();
-		SanPhamDAO sanPhamDao = new SanPhamDAO();
+		DichVuDAO sanPhamDao = new DichVuDAO();
 
-		SanPham sanPham = sanPhamDao.getSanPhamTheoTen(tenSanPham);
+		DichVu sanPham = sanPhamDao.getSanPhamTheoTen(tenSanPham);
 		return sanPham;
 	}
 	
